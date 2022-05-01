@@ -1,7 +1,7 @@
-import model.CourseIdea;
-import model.CourseIdeaDAO;
+import model.Idea;
+import model.IdeaDAO;
 import model.NotFoundException;
-import model.SimpleCourseIdeaDAO;
+import model.SimpleIdeaDAO;
 import spark.ModelAndView;
 import spark.Request;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -17,7 +17,7 @@ public class Main {
 
     public static void main(String[] args) {
         staticFileLocation("/static");
-        CourseIdeaDAO dao = new SimpleCourseIdeaDAO();
+        IdeaDAO dao = new SimpleIdeaDAO();
 
         before((request, response) -> {
             if (request.cookie("username") != null) {
@@ -57,9 +57,9 @@ public class Main {
 
         post("/ideas", (request, response) -> {
             String title = request.queryParams("title");
-            CourseIdea courseIdea = new CourseIdea(title, request
+            Idea idea = new Idea(title, request
                     .cookie("username"));
-            dao.add(courseIdea);
+            dao.add(idea);
             response.redirect("/ideas");
             return null;
         });
@@ -71,7 +71,7 @@ public class Main {
         }, new HandlebarsTemplateEngine());
 
         post("/ideas/:slug/vote", (request, response) -> {
-            CourseIdea idea = dao.findBySlug(request.params("slug"));
+            Idea idea = dao.findBySlug(request.params("slug"));
             boolean added = idea.addVoter(request.attribute("username"));
             if (added) {
                 setFlashMessage(request, "Thanks for your vote!");

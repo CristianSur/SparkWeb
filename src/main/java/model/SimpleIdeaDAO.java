@@ -3,25 +3,25 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimpleCourseIdeaDAO implements CourseIdeaDAO {
-    private List<CourseIdea> ideas;
+public class SimpleIdeaDAO implements IdeaDAO {
+    private List<Idea> ideas;
 
-    public SimpleCourseIdeaDAO() {
+    public SimpleIdeaDAO() {
         ideas = new ArrayList<>();
     }
 
     @Override
-    public boolean add(CourseIdea idea) {
+    public boolean add(Idea idea) {
         return ideas.add(idea);
     }
 
     @Override
-    public List<CourseIdea> findAll() {
+    public List<Idea> findAll() {
         return new ArrayList<>(ideas);
     }
 
     @Override
-    public CourseIdea findBySlug(String slug) {
+    public Idea findBySlug(String slug) {
         return ideas.stream()
                 .filter(idea -> idea.getSlug().equals(slug))
                 .findFirst()

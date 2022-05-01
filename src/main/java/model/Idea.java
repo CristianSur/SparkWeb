@@ -4,7 +4,7 @@ import com.github.slugify.Slugify;
 
 import java.util.*;
 
-public class CourseIdea {
+public class Idea {
     private String slug;
     private String title;
     private String creator;
@@ -12,7 +12,7 @@ public class CourseIdea {
 
 
 
-    public CourseIdea(String title, String creator) {
+    public Idea(String title, String creator) {
         voters = new HashSet<>();
         this.title = title;
         this.creator = creator;
@@ -48,7 +48,7 @@ public class CourseIdea {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CourseIdea that = (CourseIdea) o;
+        Idea that = (Idea) o;
         return Objects.equals(title, that.title) && Objects.equals(creator, that.creator);
     }
 
